@@ -32,6 +32,28 @@ function App() {
     return null;
   }
 
+  if (authUser === null) {
+    return (
+      <>
+        <Loading />
+        <div className="app-container">
+          <header>
+            <Navigation signOut={onSignOut} authUser={authUser} />
+          </header>
+          <main>
+            <Routes>
+              <Route path="/*" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/threads/:id" element={<DetailPage />} />
+              <Route path="/leaderboards" element={<LeaderboardsPage />} />
+            </Routes>
+          </main>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Loading />
@@ -41,9 +63,7 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/*" element={<HomePage />} />
             <Route path="/threads/:id" element={<DetailPage />} />
             <Route path="/leaderboards" element={<LeaderboardsPage />} />
           </Routes>

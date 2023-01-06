@@ -47,7 +47,7 @@ function HomePage() {
       </div>
       <div className="main-tab">
         {
-          authUser && <ThreadInput addThread={onAddThread} />
+          authUser && <ThreadInput addThread={onAddThread} type="light" />
         }
 
         <ThreadsList threads={threadList} onVote={onVote} />

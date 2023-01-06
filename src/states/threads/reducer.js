@@ -9,34 +9,35 @@ function threadsReducer(threads = [], action = {}) {
     case ActionType.TOGGLE_LIKE_THREAD:
       return threads.map((thread) => {
         if (thread.id === action.payload.threadId) {
-          switch (action.payload.isUp) {
-            case true:
-              return {
-                ...thread,
-                upVotesBy: thread.upVotesBy.includes(action.payload.userId)
-                  ? thread.upVotesBy
-                  : thread.upVotesBy.concat([action.payload.userId]),
-                downVotesBy: thread.downVotesBy.includes(action.payload.userId)
-                  ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
-                  : thread.downVotesBy,
-              };
-            case false:
-              return {
-                ...thread,
-                upVotesBy: thread.upVotesBy.includes(action.payload.userId)
-                  ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
-                  : thread.upVotesBy,
-                downVotesBy: thread.downVotesBy.includes(action.payload.userId)
-                  ? thread.downVotesBy
-                  : thread.downVotesBy.concat([action.payload.userId]),
-              };
-            default:
-              return {
-                ...thread,
-                upVotesBy: thread.upVotesBy.filter((id) => id !== action.payload.userId),
-                downVotesBy: thread.downVotesBy.filter((id) => id !== action.payload.userId),
-              };
+          if (action.payload.isUp === true) {
+            return {
+              ...thread,
+              upVotesBy: thread.upVotesBy.includes(action.payload.userId)
+                ? thread.upVotesBy
+                : thread.upVotesBy.concat([action.payload.userId]),
+              downVotesBy: thread.downVotesBy.includes(action.payload.userId)
+                ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
+                : thread.downVotesBy,
+            };
           }
+
+          if (action.payload.isUp === false) {
+            return {
+              ...thread,
+              upVotesBy: thread.upVotesBy.includes(action.payload.userId)
+                ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
+                : thread.upVotesBy,
+              downVotesBy: thread.downVotesBy.includes(action.payload.userId)
+                ? thread.downVotesBy
+                : thread.downVotesBy.concat([action.payload.userId]),
+            };
+          }
+
+          return {
+            ...thread,
+            upVotesBy: thread.upVotesBy.filter((id) => id !== action.payload.userId),
+            downVotesBy: thread.downVotesBy.filter((id) => id !== action.payload.userId),
+          };
         }
 
         return thread;

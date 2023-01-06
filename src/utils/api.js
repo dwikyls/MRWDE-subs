@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const api = (() => {
   const BASE_URL = 'https://forum-api.dicoding.dev/v1';
 
@@ -120,9 +118,9 @@ const api = (() => {
   }
 
   async function getThreadDetail(id) {
-    const response = await axios.get(`${BASE_URL}/threads/${id}`);
+    const response = await fetch(`${BASE_URL}/threads/${id}`);
 
-    const responseJson = response.data;
+    const responseJson = await response.json();
 
     const { status, message } = responseJson;
 

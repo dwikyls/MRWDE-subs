@@ -21,7 +21,7 @@ function asyncPopulateUsersAndThreads() {
       dispatch(receiveLocalThreadsActionCreator(threads));
       dispatch(receiveLeaderboardsActionCreator(leaderboards));
     } catch (error) {
-      //
+      alert(error.message);
     }
 
     dispatch(hideLoading());

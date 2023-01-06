@@ -11,34 +11,35 @@ function commentsReducer(comments = [], action = {}) {
     case ActionType.TOGGLE_LIKE_COMMENT:
       return comments.map((comment) => {
         if (comment.id === action.payload.commentId) {
-          switch (action.payload.isUp) {
-            case true:
-              return {
-                ...comment,
-                upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-                  ? comment.upVotesBy
-                  : comment.upVotesBy.concat([action.payload.userId]),
-                downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-                  ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
-                  : comment.downVotesBy,
-              };
-            case false:
-              return {
-                ...comment,
-                upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-                  ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
-                  : comment.upVotesBy,
-                downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-                  ? comment.downVotesBy
-                  : comment.downVotesBy.concat([action.payload.userId]),
-              };
-            default:
-              return {
-                ...comment,
-                upVotesBy: comment.upVotesBy.filter((id) => id !== action.payload.userId),
-                downVotesBy: comment.downVotesBy.filter((id) => id !== action.payload.userId),
-              };
+          if (action.payload.isUp === true) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                ? comment.upVotesBy
+                : comment.upVotesBy.concat([action.payload.userId]),
+              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+                : comment.downVotesBy,
+            };
           }
+
+          if (action.payload.isUp === false) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+                : comment.upVotesBy,
+              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                ? comment.downVotesBy
+                : comment.downVotesBy.concat([action.payload.userId]),
+            };
+          }
+
+          return {
+            ...comment,
+            upVotesBy: comment.upVotesBy.filter((id) => id !== action.payload.userId),
+            downVotesBy: comment.downVotesBy.filter((id) => id !== action.payload.userId),
+          };
         }
 
         return comment;

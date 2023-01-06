@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from './styled/Button';
+import Textarea from './styled/Textarea';
 
 function ThreadReplyInput({ replyThread }) {
   const [content, setContent] = useState('');
 
-  function replyThreadHandler() {
+  const replyThreadHandler = () => {
     if (content.trim()) {
       replyThread(content);
       setContent('');
     }
-  }
+  };
 
-  function handleContentChange({ target }) {
+  const handleContentChange = ({ target }) => {
     if (target.value.length <= 320) {
       setContent(target.value);
     }
-  }
+  };
 
   return (
     <div className="thread-reply-input">
-      <textarea type="text" placeholder="Komentar..." value={content} onChange={handleContentChange} />
+      <Textarea type="text" placeholder="Komentar..." value={content} onChange={handleContentChange} />
       <p className="thread-reply-input__char-left">
         <strong>{content.length}</strong>
         /320
       </p>
-      <button type="submit" onClick={replyThreadHandler}>Balas</button>
+      <Button type="submit" onClick={replyThreadHandler}>Balas</Button>
     </div>
   );
 }

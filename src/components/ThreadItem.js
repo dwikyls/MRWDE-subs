@@ -59,12 +59,12 @@ function ThreadItem({
           <div>
             <button
               type="button"
-              aria-label="like"
+              aria-label={`like-${id}`}
               onClick={(event) => {
                 onToggleVote(event, isThreadLiked);
               }}
             >
-              <FaThumbsUp style={{ color: isThreadLiked == null ? 'red' : 'grey' }} />
+              <FaThumbsUp aria-label={`like-icon-${id}`} style={{ color: isThreadLiked == null ? 'red' : 'grey' }} />
               {' '}
               {upVotesBy.length}
             </button>
@@ -72,12 +72,12 @@ function ThreadItem({
             &nbsp;
             <button
               type="button"
-              aria-label="like"
+              aria-label={`unlike-${id}`}
               onClick={(event) => {
                 onToggleVote(event, isThreadDisliked);
               }}
             >
-              <FaThumbsDown style={{ color: isThreadDisliked == null ? 'red' : 'grey' }} />
+              <FaThumbsDown aria-label={`unlike-icon-${id}`} style={{ color: isThreadDisliked == null ? 'red' : 'grey' }} />
               {' '}
               {downVotesBy.length}
             </button>
@@ -102,15 +102,25 @@ const userShape = {
 };
 
 const threadItemShape = {
+  /** The unique identifier of the thread */
   id: PropTypes.string.isRequired,
+  /** The title of the thread */
   title: PropTypes.string.isRequired,
+  /** The main content of the thread */
   body: PropTypes.string.isRequired,
+  /** The category of the thread */
   category: PropTypes.string,
+  /** When the thread created */
   createdAt: PropTypes.string.isRequired,
+  /** Who create the thread */
   owner: PropTypes.shape(userShape).isRequired,
+  /** Who like the thread */
   upVotesBy: PropTypes.array.isRequired,
+  /** Who don't like the thread */
   downVotesBy: PropTypes.array.isRequired,
+  /** The total comments of the thread */
   totalComments: PropTypes.number.isRequired,
+  /** Current logged user */
   authUser: PropTypes.string,
 };
 
