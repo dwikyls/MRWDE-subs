@@ -18,7 +18,7 @@ function LoginPage() {
           Mari bercakap,
           {' '}
           <br />
-          Menggunakan Aplikasi Mirip Twitter.
+          Menggunakan Aplikasi Seperti Twitter.
         </h2>
 
         <LoginInput login={onLogin} />
