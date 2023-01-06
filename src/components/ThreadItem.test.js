@@ -56,6 +56,6 @@ describe('ThreadItem component', () => {
     await userEvent.click(likeButton);
 
     // Assert
-    expect(likeIcon).toHaveStyle('color: grey');
+    expect(likeIcon).toHaveStyle('color: red');
   });
 });
